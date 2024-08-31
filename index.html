@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Для работы конструкторишке теплосетей</h1>
+        <menu>
+            
+                <div><a href="http://">Неподвижная опора</a></div>
+                <div><a href="http://">Сбор нагрузок на канал</a></div>
+                <div><a href="http://">Справочные материалы</a></div>
+            
+        </menu>
+    </header>
+    <div class="bord"></div>
+    <div class = "ris_1"><img src="img/ris_1.png" alt="" srcset=""></div>
+    <div class="bord"></div>
+    <main>
+        <div class="data">
+            <h3>Вводные данные по грунту</h3>
+                <p>
+                    <label for="Yn">Удельный вес Yn,кН/м3</label>
+                    <input type="number" name="" id="Yn" value = '17'>
+                </p>
+                <p>
+                    <label for="fin">Угол трения fn, град</label>
+                    <input type="number" name="" id="fin" value = '35'>
+                </p>
+                <p>
+                    <label for="Cn">Удельное сцепление Cn, кПа</label>
+                    <input type="number" name="" id="Cn" value = '1'>
+                </p>
+                <p>
+                    <label for="ground_level">Отметка земли, м</label>
+                    <input type="number" name="" id="ground_level" value = '12'>
+                </p>
+                <p>
+                    <label for="pipe_level">Отметка оси трубы, м</label>
+                    <input type="number" name="" id="pipe_level" value = '10.8'>
+                </p>
+                <p>
+                    <label for="B">Ширина щита, м</label>
+                    <input type="number" name="" id="B" value = '1.8'>
+                </p>
+                <p>
+                    <label for="H">Высота щита, м</label>
+                    <input type="number" name="" id="H" value = '0.85'>
+                </p>
+                <h3>Тип грунта</h3>
+                <p>
+                    <div>
+                        <p><input type="radio" name="ground" id="sand" value="1" checked>
+                        <label for="sand">Песок</label></p>
+                        <p><input type="radio" name="ground" id="clay" value="2">
+                        <label for="clay">Глина</label></p>
+                    </div>
+                </p>
+                <h3>Нагрузка</h3>
+                <p>
+                    <label for="load"><b>Нагрузка, кН</b></label>
+                    <input type="number" name="load" id="load" value = '80'>
+                </p>
+                <p>
+                    <div>
+                        <input type="button" value="count" id="count">
+                    </div>
+                </p>
+        </div>
+           <div class="exit">
+            <h3>Выводные данные</h3>
+            <div id="resalt">
+                <!-- <p>
+                    <label for="">Y1' = </label>
+                </p>
+                <p>
+                    <label for="">Ф1' = </label>
+                </p>
+                <p>
+                    <label for="">C1' = </label>
+                </p> -->
+            </div>
+
+           </div>
+    </main>
+    <footer></footer>
+    <script src="js.js"></script>
+</body>
+</html>

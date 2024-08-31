@@ -1,0 +1,59 @@
+*{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+}
+body{
+    background-color: bisque;
+    display: flex;
+    flex-direction: column;
+    width: 1200px;
+    margin: auto;
+}
+menu{
+    display: grid;
+    
+}
+p{
+    font-size: 19px;
+}
+a{
+    text-decoration: none;
+}
+.ris_1 img{
+    width: 1200px;
+
+}
+.bord{
+    width: 100%;
+    height: 10px;
+    background-color: black;
+}
+main{
+    margin-top: 50px;
+    display: flex;
+    flex-direction: row;
+}
+.data{
+    font-size: 15px;
+    width: 50%;
+    height: 300px;
+}
+.data input{
+    width: 75px;
+    float:right;
+    padding-right: 15px;
+}
+.data p{
+    margin: 10px;
+}
+.exit{
+    width: 50%;
+}
+h1{
+    text-align: center;
+}
+#resalt{
+    padding-left: 15px ;
+    line-height: 30px;
+}
