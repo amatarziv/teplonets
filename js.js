@@ -180,7 +180,7 @@ count.onclick = function(){
 //   console.log(alfa)
   e = eccentricity()
 //   console.log(e)
-  h1 = Number(GroundLevel.value) - Number(PipeLevel.value) - ( Number(H.value)/2 - e )
+  h1 = Number(GroundLevel.value) - Number(PipeLevel.value) - ( Number(H.value)/2 + e )
 //   console.log(h1)
 Rez += "<p> Заглубление верха щита = " + h1.toFixed(2) + " м </p><p></p>"
   h2 = h1 + Number(H.value)
