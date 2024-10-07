@@ -12,6 +12,7 @@ body{
 }
 menu{
      /*! display: grid;!*/
+        display: block;
     
 }
 p{
