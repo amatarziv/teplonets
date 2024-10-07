@@ -7,7 +7,7 @@ body{
     background-color: bisque;
     display: flex;
     flex-direction: column;
-    width: 1200px;
+    width: 900px;
     margin: auto;
 }
 menu{
