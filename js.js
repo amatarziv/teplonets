@@ -167,7 +167,7 @@ function eccentricity(){
 
 count.onclick = function(){
   Rez = NaN
-  Rez = '<h3>Расчетные характеристики грунтов:</h3>'
+  Rez = '<p>Расчетные характеристики грунтов (приняты с учетом 6.3.3 ТКП 45-5.01-237-2011):</p>'
   Y11Count()
   Rez += "<p> Y1`=" + Y11.toFixed(2) + " кН/м3 </p>"
   fi11Count()
