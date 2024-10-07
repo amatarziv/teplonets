@@ -182,10 +182,10 @@ count.onclick = function(){
 //   console.log(e)
   h1 = Number(GroundLevel.value) - Number(PipeLevel.value) - ( Number(H.value)/2 + e )
 //   console.log(h1)
-Rez += "<p> Заглубление верха щита = " + h1.toFixed(2) + " м </p><p></p>"
+Rez += "<p> h min = " + h1.toFixed(2) + " м </p><p></p>"
   h2 = h1 + Number(H.value)
 //   console.log(h2)
-Rez += "<p> Заглубление низа щита = " + h2.toFixed(2) + " м </p>"
+Rez += "<p> h max = " + h2.toFixed(2) + " м </p>"
   W = (Number(B.value)*Number(H.value)*Number(H.value))/6
 //   console.log (W)
 Rez += "<p> W = " + W.toFixed(3) + "м3 </p>"
@@ -193,6 +193,8 @@ Rez += "<p> W = " + W.toFixed(3) + "м3 </p>"
 //   console.log(S)
 Rez += "<p> S<small>(площадь)</small> = " + S.toFixed(3) + " м2 </p>"
 Rez += "<p> e<small>(эксцентриситет)</small> = " + e.toFixed(4) + " м </p>"
+Rez += "<p> K<small>p</small> = " + Kp.toFixed(2) + " </p>"
+Rez += "<p> K<small>a</small> = " + Ka.toFixed(2) + " </p>"
 GHoldMin = Number(Y11)*h1*(Number(Ka)-Number(Kp))
 //   console.log(GHoldMin)
   GHoldMax = Y11*h2*(Ka-Kp)
