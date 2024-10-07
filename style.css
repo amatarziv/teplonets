@@ -12,7 +12,9 @@ body{
 }
 menu{
      /*! display: grid;!*/
-        display: block;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
     
 }
 p{
