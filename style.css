@@ -39,8 +39,8 @@ main{
 }
 .data{
     font-size: 15px;
-    width: 50%;
-    height: 300px;
+    
+  
 }
 .data input{
     width: 75px;
@@ -51,7 +51,7 @@ main{
     margin: 10px;
 }
 .exit{
-    width: 50%;
+    
 }
 h1{
     text-align: center;
