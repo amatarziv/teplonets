@@ -24,7 +24,8 @@ a{
     text-decoration: none;
 }
 .ris_1 img{
-    max-width: 900 px;
+   /*! max-width: 900 px;!*/
+        width:100%;
 
 }
 .bord{
