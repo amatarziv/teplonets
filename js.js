@@ -205,7 +205,7 @@ GHoldMin = Number(Y11)*h1*(Number(Ka)-Number(Kp))
 //   console.log(GhsiftMin)
   GshiftMax = Number(N.value)/S + Number(N.value)*e/W
 //   console.log(GhsiftMax)
-Rez += "<p> G<sup>min</sup><sub>уд</sub> = " + GHoldMin.toFixed(3) +"       G<sup>min</sup><sub>опр</sub> = "+ GshiftMin.toFixed(3) +" кН/м2 </p>"
-Rez += "<p> G<sup>max</sup><sub>уд</sub> = " + GHoldMax.toFixed(3) +"       G<sup>max</sup><sub>опр</sub> = "+ GshiftMax.toFixed(3) +" кН/м2 </p>"
+Rez += "<p> G<sup>min</sup><sub>уд</sub> = " + GHoldMin.toFixed(3) +" кН/м2 </p>  >"       G<sup>min</sup><sub>опр</sub> = "+ GshiftMin.toFixed(3) +" кН/м2 </p>"
+Rez += "<p> G<sup>max</sup><sub>уд</sub> = " + GHoldMax.toFixed(3) +" кН/м2 </p>  >"       G<sup>max</sup><sub>опр</sub> = "+ GshiftMax.toFixed(3) +" кН/м2 </p>"
   resalt.innerHTML = Rez
 }
