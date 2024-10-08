@@ -11,7 +11,6 @@ const N = document.getElementById("load")
 const GroundLevel = document.getElementById("ground_level")
 const PipeLevel = document.getElementById("pipe_level")
 
-
 const K = 
 [
     [10,0.7,1.42],
