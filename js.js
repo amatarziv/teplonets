@@ -196,8 +196,8 @@ Rez += "<p> e<small>(эксцентриситет)</small> = " + e.toFixed(4) + 
 Rez += "<p> K<small>p</small> = " + Ka.toFixed(2) + " </p>"
 Rez += "<p> K<small>a</small> = " + Kp.toFixed(2) + " </p>"
 Rez += "<p>Gуд = Kp*Y1`*h  -  Ka*Y1`*h - из формулы 6.4 ТКП 45-5.01-237-2011</p>"
-Rez += "<p>"+Ka+"*"+h1+"*"+Y11+"-"+Kp+"*"+h1+"*"+Y11+"</p>"
-Rez += "<p>"+Ka+"*"+h2+"*"+Y11+"-"+Kp+"*"+h2+"*"+Y11+"</p>"
+Rez += "<p>"+Ka.toFixed(2)+"*"+h1.toFixed(2)+"*"+Y11.toFixed(2)+"-"+Kp.toFixed(2)+"*"+h1.toFixed(2)+"*"+Y11.toFixed(2)+"</p>"
+Rez += "<p>"+Ka.toFixed(2)+"*"+h2.toFixed(2)+"*"+Y11.toFixed(2)+"-"+Kp.toFixed(2)+"*"+h2.toFixed(2)+"*"+Y11.toFixed(2)+"</p>"
 
     
 Rez +="<p>Gоп = Q<small>d</small>/S +/- Q<small>d</small>*e/W</p>"
