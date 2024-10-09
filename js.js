@@ -202,8 +202,8 @@ GHoldMin = Number(Y11)*h1*(Number(Ka)-Number(Kp))
 //   console.log(GHoldMin)
   GHoldMax = Y11*h2*(Ka-Kp)
 //   console.log(GHoldMax)
-    Rez += "<p> G<sup>min</sup><sub>уд</sub> = "+Ka.toFixed(2)+"*"+h1.toFixed(2)+"*"+Y11.toFixed(2)+"-"+Kp.toFixed(2)+"*"+h1.toFixed(2)+"*"+Y11.toFixed(2)+" = " +GHoldMin+"</p>"
-Rez += "<p> G<sup>max</sup><sub>уд</sub> = "+Ka.toFixed(2)+"*"+h2.toFixed(2)+"*"+Y11.toFixed(2)+"-"+Kp.toFixed(2)+"*"+h2.toFixed(2)+"*"+Y11.toFixed(2)+" = " +GHoldMax+"</p>"
+    Rez += "<p> G<sup>min</sup><sub>уд</sub> = "+Ka.toFixed(2)+"*"+h1.toFixed(2)+"*"+Y11.toFixed(2)+"-"+Kp.toFixed(2)+"*"+h1.toFixed(2)+"*"+Y11.toFixed(2)+" = " +GHoldMin.toFixed(2)+"кН/м2</p>"
+Rez += "<p> G<sup>max</sup><sub>уд</sub> = "+Ka.toFixed(2)+"*"+h2.toFixed(2)+"*"+Y11.toFixed(2)+"-"+Kp.toFixed(2)+"*"+h2.toFixed(2)+"*"+Y11.toFixed(2)+" = " +GHoldMax.toFixed(2)+"кН/м2</p>"
   GshiftMin = Number(N.value)/S - Number(N.value)*e/W
 //   console.log(GhsiftMin)
   GshiftMax = Number(N.value)/S + Number(N.value)*e/W
