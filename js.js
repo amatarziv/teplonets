@@ -202,18 +202,18 @@ GHoldMin = Number(Y11)*h1*(Number(Ka)-Number(Kp))
 //   console.log(GHoldMin)
   GHoldMax = Y11*h2*(Ka-Kp)
 //   console.log(GHoldMax)
-Rez += "<p> G<sup>min</sup><sub>уд</sub> = "+Ka.toFixed(2)+"*"+h1.toFixed(2)+"*"+Y11.toFixed(2)+"-"+Kp.toFixed(2)+"*"+h1.toFixed(2)+"*"+Y11.toFixed(2)+" = " +GHoldMin.toFixed(3)+"кН/м2</p>"
-Rez += "<p> G<sup>max</sup><sub>уд</sub> = "+Ka.toFixed(2)+"*"+h2.toFixed(2)+"*"+Y11.toFixed(2)+"-"+Kp.toFixed(2)+"*"+h2.toFixed(2)+"*"+Y11.toFixed(2)+" = " +GHoldMax.toFixed(3)+"кН/м2</p>"
+Rez += "<p> G<sup>min</sup><sub>уд</sub> = "+Ka.toFixed(2)+" * "+h1.toFixed(2)+" * "+Y11.toFixed(2)+" - "+Kp.toFixed(2)+" * "+h1.toFixed(2)+" * "+Y11.toFixed(2)+" = " +GHoldMin.toFixed(3)+" кН/м2</p>"
+Rez += "<p> G<sup>max</sup><sub>уд</sub> = "+Ka.toFixed(2)+" * "+h2.toFixed(2)+" * "+Y11.toFixed(2)+" - "+Kp.toFixed(2)+" * "+h2.toFixed(2)+" * "+Y11.toFixed(2)+" = " +GHoldMax.toFixed(3)+" кН/м2</p>"
     
   GshiftMin = Number(N.value)/S - Number(N.value)*e/W
 //   console.log(GhsiftMin)
   GshiftMax = Number(N.value)/S + Number(N.value)*e/W
 //   console.log(GhsiftMax)
 
-    Rez += "<p>G<sup>min</sup><sub>опр</sub> = "+ Number(N.value).toFixed(2)+"/"+S.toFixed(3)+" - " +Number(N.value).toFixed(2)+" * "+e.toFixed(2)+"/"+W.toFixed(3)+" ="+GshiftMin.toFixed(3)+"кН/м2</p>"
-    Rez += "<p>G<sup>max</sup><sub>опр</sub> = "+ Number(N.value).toFixed(2)+"/"+S.toFixed(3)+" + " +Number(N.value).toFixed(2)+" * "+e.toFixed(2)+"/"+W.toFixed(3)+" ="+GshiftMax.toFixed(3)+"кН/м2</p>"
+    Rez += "<p>G<sup>min</sup><sub>опр</sub> = "+Number(N.value).toFixed(2)+" / "+S.toFixed(3)+" - "+Number(N.value).toFixed(2)+" * "+e.toFixed(2)+"/"+W.toFixed(3)+" ="+GshiftMin.toFixed(3)+" кН/м2</p>"
+    Rez += "<p>G<sup>max</sup><sub>опр</sub> = "+Number(N.value).toFixed(2)+" / "+S.toFixed(3)+" + "+Number(N.value).toFixed(2)+" * "+e.toFixed(2)+"/"+W.toFixed(3)+" ="+GshiftMax.toFixed(3)+" кН/м2</p>"
     
-Rez += "<p> G<sup>min</sup><sub>уд</sub> = " + GHoldMin.toFixed(3) +"  >    G<sup>min</sup><sub>опр</sub> = "+ GshiftMin.toFixed(3) +" кН/м2 </p>"
-Rez += "<p> G<sup>max</sup><sub>уд</sub> = " + GHoldMax.toFixed(3) +"  >    G<sup>max</sup><sub>опр</sub> = "+ GshiftMax.toFixed(3) +" кН/м2 </p>"
+Rez += "<p> G<sup>min</sup><sub>уд</sub> = " + GHoldMin.toFixed(3) +" кН/м2"   >    G<sup>min</sup><sub>опр</sub> = "+ GshiftMin.toFixed(3) +" кН/м2 </p>"
+Rez += "<p> G<sup>max</sup><sub>уд</sub> = " + GHoldMax.toFixed(3) +" кН/м2"   >    G<sup>max</sup><sub>опр</sub> = "+ GshiftMax.toFixed(3) +" кН/м2 </p>"
   resalt.innerHTML = Rez
 }
