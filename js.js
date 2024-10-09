@@ -169,11 +169,11 @@ count.onclick = function(){
   Rez = NaN
   Rez = '<p>Расчетные характеристики грунтов (приняты с учетом 6.3.3 ТКП 45-5.01-237-2011):</p>'
   Y11Count()
-  Rez += "<p> Y1`=" + Y11.toFixed(2) + " кН/м3 </p>"
+  Rez += "<p> Y1`=" + Y11.toFixed(3) + " кН/м3 </p>"
   fi11Count()
-  Rez += "<p> f1`=" + fi11.toFixed(2) + " град </p>"
+  Rez += "<p> f1`=" + fi11.toFixed(3) + " град </p>"
   C11Count()
-  Rez += "<p> С1`=" + C11.toFixed(2) + " кПа </p>"
+  Rez += "<p> С1`=" + C11.toFixed(3) + " кПа </p>"
 //   console.log(interpol(2))
 
   AlfaCount()
@@ -182,10 +182,10 @@ count.onclick = function(){
 //   console.log(e)
   h1 = Number(GroundLevel.value) - Number(PipeLevel.value) - ( Number(H.value)/2 + e )
 //   console.log(h1)
-Rez += "<p> h min = " + h1.toFixed(2) + " м </p><p></p>"
+Rez += "<p> h min = " + h1.toFixed(3) + " м </p><p></p>"
   h2 = h1 + Number(H.value)
 //   console.log(h2)
-Rez += "<p> h max = " + h2.toFixed(2) + " м </p>"
+Rez += "<p> h max = " + h2.toFixed(3) + " м </p>"
   W = (Number(B.value)*Number(H.value)*Number(H.value))/6
 //   console.log (W)
 Rez += "<p> W = " + W.toFixed(3) + "м3 </p>"
@@ -193,8 +193,8 @@ Rez += "<p> W = " + W.toFixed(3) + "м3 </p>"
 //   console.log(S)
 Rez += "<p> S<small>(площадь)</small> = " + S.toFixed(3) + " м2 </p>"
 Rez += "<p> e<small>(эксцентриситет)</small> = " + e.toFixed(4) + " м </p>"
-Rez += "<p> K<small>p</small> = " + Ka.toFixed(2) + " </p>"
-Rez += "<p> K<small>a</small> = " + Kp.toFixed(2) + " </p>"
+Rez += "<p> K<small>p</small> = " + Ka.toFixed(3) + " </p>"
+Rez += "<p> K<small>a</small> = " + Kp.toFixed(3) + " </p>"
 Rez += "<p>Gуд = Kp*Y1`*h  -  Ka*Y1`*h - из формулы 6.4 ТКП 45-5.01-237-2011</p>"
 
 Rez +="<p>Gоп = Q<small>d</small>/S +/- Q<small>d</small>*e/W</p>"
@@ -202,16 +202,16 @@ GHoldMin = Number(Y11)*h1*(Number(Ka)-Number(Kp))
 //   console.log(GHoldMin)
   GHoldMax = Y11*h2*(Ka-Kp)
 //   console.log(GHoldMax)
-Rez += "<p> G<sup>min</sup><sub>уд</sub> = "+Ka.toFixed(2)+" * "+h1.toFixed(2)+" * "+Y11.toFixed(2)+" - "+Kp.toFixed(2)+" * "+h1.toFixed(2)+" * "+Y11.toFixed(2)+" = " +GHoldMin.toFixed(3)+" кН/м2</p>"
-Rez += "<p> G<sup>max</sup><sub>уд</sub> = "+Ka.toFixed(2)+" * "+h2.toFixed(2)+" * "+Y11.toFixed(2)+" - "+Kp.toFixed(2)+" * "+h2.toFixed(2)+" * "+Y11.toFixed(2)+" = " +GHoldMax.toFixed(3)+" кН/м2</p>"
+Rez += "<p> G<sup>min</sup><sub>уд</sub> = "+Ka.toFixed(3)+" * "+h1.toFixed(3)+" * "+Y11.toFixed(3)+" - "+Kp.toFixed(3)+" * "+h1.toFixed(3)+" * "+Y11.toFixed(3)+" = " +GHoldMin.toFixed(3)+" кН/м2</p>"
+Rez += "<p> G<sup>max</sup><sub>уд</sub> = "+Ka.toFixed(3)+" * "+h2.toFixed(3)+" * "+Y11.toFixed(3)+" - "+Kp.toFixed(3)+" * "+h2.toFixed(3)+" * "+Y11.toFixed(3)+" = " +GHoldMax.toFixed(3)+" кН/м2</p>"
     
   GshiftMin = Number(N.value)/S - Number(N.value)*e/W
 //   console.log(GhsiftMin)
   GshiftMax = Number(N.value)/S + Number(N.value)*e/W
 //   console.log(GhsiftMax)
 
-    Rez += "<p>G<sup>min</sup><sub>опр</sub> = "+Number(N.value).toFixed(2)+" / "+S.toFixed(3)+" - "+Number(N.value).toFixed(2)+" * "+e.toFixed(2)+"/"+W.toFixed(3)+" ="+GshiftMin.toFixed(3)+" кН/м2</p>"
-    Rez += "<p>G<sup>max</sup><sub>опр</sub> = "+Number(N.value).toFixed(2)+" / "+S.toFixed(3)+" + "+Number(N.value).toFixed(2)+" * "+e.toFixed(2)+"/"+W.toFixed(3)+" ="+GshiftMax.toFixed(3)+" кН/м2</p>"
+    Rez += "<p>G<sup>min</sup><sub>опр</sub> = "+Number(N.value).toFixed(3)+" / "+S.toFixed(3)+" - "+Number(N.value).toFixed(3)+" * "+e.toFixed(3)+"/"+W.toFixed(3)+" ="+GshiftMin.toFixed(3)+" кН/м2</p>"
+    Rez += "<p>G<sup>max</sup><sub>опр</sub> = "+Number(N.value).toFixed(3)+" / "+S.toFixed(3)+" + "+Number(N.value).toFixed(3)+" * "+e.toFixed(3)+"/"+W.toFixed(3)+" ="+GshiftMax.toFixed(3)+" кН/м2</p>"
     
 Rez += "<p> G<sup>min</sup><sub>уд</sub> = " + GHoldMin.toFixed(3) +" кН/м2"   >    G<sup>min</sup><sub>опр</sub> = "+ GshiftMin.toFixed(3) +" кН/м2 </p>"
 Rez += "<p> G<sup>max</sup><sub>уд</sub> = " + GHoldMax.toFixed(3) +" кН/м2"   >    G<sup>max</sup><sub>опр</sub> = "+ GshiftMax.toFixed(3) +" кН/м2 </p>"
