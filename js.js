@@ -213,7 +213,7 @@ Rez += "<p> G<sup>max</sup><sub>уд</sub> = "+Ka.toFixed(3)+" * "+h2.toFixed(3)
     Rez += "<p>G<sup>min</sup><sub>опр</sub> = "+Number(N.value).toFixed(3)+" / "+S.toFixed(3)+" - "+Number(N.value).toFixed(3)+" * "+e.toFixed(3)+"/"+W.toFixed(3)+" ="+GshiftMin.toFixed(3)+" кН/м2</p>"
     Rez += "<p>G<sup>max</sup><sub>опр</sub> = "+Number(N.value).toFixed(3)+" / "+S.toFixed(3)+" + "+Number(N.value).toFixed(3)+" * "+e.toFixed(3)+"/"+W.toFixed(3)+" ="+GshiftMax.toFixed(3)+" кН/м2</p>"
     
-Rez += "<p> G<sup>min</sup><sub>уд</sub> = " + GHoldMin.toFixed(3) +" кН/м2"   >    G<sup>min</sup><sub>опр</sub> = "+ GshiftMin.toFixed(3) +" кН/м2 </p>"
-Rez += "<p> G<sup>max</sup><sub>уд</sub> = " + GHoldMax.toFixed(3) +" кН/м2"   >    G<sup>max</sup><sub>опр</sub> = "+ GshiftMax.toFixed(3) +" кН/м2 </p>"
+Rez += "<p> G<sup>min</sup><sub>уд</sub> = " + GHoldMin.toFixed(3) +" кН/м2   >    G<sup>min</sup><sub>опр</sub> = "+ GshiftMin.toFixed(3) +" кН/м2 </p>"
+Rez += "<p> G<sup>max</sup><sub>уд</sub> = " + GHoldMax.toFixed(3) +" кН/м2   >    G<sup>max</sup><sub>опр</sub> = "+ GshiftMax.toFixed(3) +" кН/м2 </p>"
   resalt.innerHTML = Rez
 }
