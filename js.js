@@ -193,6 +193,7 @@ Rez += "<p> W = " + W.toFixed(3) + "м3 </p>"
 //   console.log(S)
 Rez += "<p> S<small>(площадь)</small> = " + S.toFixed(3) + " м2 </p>"
 Rez += "<p> e<small>(эксцентриситет)</small> = " + e.toFixed(4) + " м </p>"
+Res += "<p>Коэффициенты Кр и Ка принимаем по таблице 6.4 ТКП 45-5.01-237-2011</p>"
 Rez += "<p> K<small>p</small> = " + Ka.toFixed(3) + " </p>"
 Rez += "<p> K<small>a</small> = " + Kp.toFixed(3) + " </p>"
 Rez += "<p>Gуд = Kp*Y1`*h  -  Ka*Y1`*h - из формулы 6.4 ТКП 45-5.01-237-2011</p>"
