@@ -196,15 +196,14 @@ Rez += "<p> e<small>(эксцентриситет)</small> = " + e.toFixed(4) + 
 Rez += "<p> K<small>p</small> = " + Ka.toFixed(2) + " </p>"
 Rez += "<p> K<small>a</small> = " + Kp.toFixed(2) + " </p>"
 Rez += "<p>Gуд = Kp*Y1`*h  -  Ka*Y1`*h - из формулы 6.4 ТКП 45-5.01-237-2011</p>"
-Rez += "<p>"+Ka.toFixed(2)+"*"+h1.toFixed(2)+"*"+Y11.toFixed(2)+"-"+Kp.toFixed(2)+"*"+h1.toFixed(2)+"*"+Y11.toFixed(2)+"</p>"
-Rez += "<p>"+Ka.toFixed(2)+"*"+h2.toFixed(2)+"*"+Y11.toFixed(2)+"-"+Kp.toFixed(2)+"*"+h2.toFixed(2)+"*"+Y11.toFixed(2)+"</p>"
 
-    
 Rez +="<p>Gоп = Q<small>d</small>/S +/- Q<small>d</small>*e/W</p>"
 GHoldMin = Number(Y11)*h1*(Number(Ka)-Number(Kp))
 //   console.log(GHoldMin)
   GHoldMax = Y11*h2*(Ka-Kp)
 //   console.log(GHoldMax)
+    Rez += "<p> G<sup>min</sup><sub>уд</sub> = "+Ka.toFixed(2)+"*"+h1.toFixed(2)+"*"+Y11.toFixed(2)+"-"+Kp.toFixed(2)+"*"+h1.toFixed(2)+"*"+Y11.toFixed(2)+" = " +GHoldMin+</p>"
+Rez += "<p> G<sup>max</sup><sub>уд</sub> = "+Ka.toFixed(2)+"*"+h2.toFixed(2)+"*"+Y11.toFixed(2)+"-"+Kp.toFixed(2)+"*"+h2.toFixed(2)+"*"+Y11.toFixed(2)+" = " +GHoldMax+</p>"
   GshiftMin = Number(N.value)/S - Number(N.value)*e/W
 //   console.log(GhsiftMin)
   GshiftMax = Number(N.value)/S + Number(N.value)*e/W
