@@ -6,10 +6,12 @@ const count = document.getElementById('count')
 const sand = document.getElementById('sand')
 const clay = document.getElementById('clay')
 const H = document.getElementById('H')
+const L = document.getElementById('L')
 const B = document.getElementById('B')
-const N = document.getElementById("load")
+const Qd = document.getElementById("load")
 const GroundLevel = document.getElementById("ground_level")
 const PipeLevel = document.getElementById("pipe_level")
+const eccentricity = document.getElementById("eccentricity")
 
 const K = 
 [
@@ -61,8 +63,11 @@ const K =
 let Ka
 let alfa
 let Y11
+let Y1
 let fi11
+let fi1
 let C11
+let C1
 let groundValue
 let e
 let h1
@@ -74,33 +79,44 @@ let GshiftMax // сдвигающая макс
 let W // момент сопротивления 
 let S //  площадь щита
 let Kp
+let Fsd
+let Fud
+let Mud
+let Mopr
 let Rez
 
 
 function AlfaCount(){
-    Kp = Number(interpol(1))
+    Ka = (Number(interpol(1))).toFixed(2)
     // console.log('Kp='+ Kp)
-    Ka = Number(interpol(2))
+    Kp = (Number(interpol(2))).toFixed(2)
     // console.log('Ka='+ Ka)
-    alfa = (Ka-Kp)*Y11
+    // alfa = (Ka-Kp)*Y11
     // console.log('fi11 ='+ fi11)
     // console.log('alfa ='+ alfa)
 }
 
 // 
 function Y11Count(){
-    Y11= Number(Yn.value)*1.05*0.95
+    Y1= (Number(Yn.value)*1.05).toFixed(2)
+    Y11= (Number(Yn.value)*1.05*0.95).toFixed(2)
 }
 //  
 function fi11Count(){
     if(sand.checked){
-           fi11 =  (Number(fin.value)/1.1)*0.9
-    } else fi11 = (Number(fin.value)/1.15)*0.9
-    
+            fi1 = (Number(fin.value)/1.1).toFixed(2)
+           fi11 =  (fi1*0.9).toFixed(2)
+           console.log(fi11)
+    } else {
+      fi1 = (Number(fin.value)/1.15).toFixed(2)
+      fi11 = (fi1)*0.9.toFixed(2)
+    }
 }
+
 // 
 function C11Count (){
     let a = Number(Cn_.value)
+    C1 = (a/1.5).toFixed(2)
     let C = (a/1.5)*0.5
     let h = Number(H.value)
     let gr = Number(GroundLevel.value)
@@ -152,15 +168,15 @@ function interpol(p){
 
 
 
-function eccentricity(){
-    let h = Number(H.value)
-    console.log('h ='+ h)
-    let b = Number(B.value)
-    console.log('b ='+ b)
-    let n = Number(N.value)
-    console.log('n ='+ n)
-    return ((h*h*h)*(alfa)*b)/(12*n)
-} 
+// function eccentricity(){
+//     let h = Number(H.value)
+//     console.log('h ='+ h)
+//     let b = Number(B.value)
+//     console.log('b ='+ b)
+//     let n = Number(N.value)
+//     console.log('n ='+ n)
+//     return ((h*h*h)*(alfa)*b)/(12*n)
+// } 
 
 
 
@@ -169,52 +185,44 @@ count.onclick = function(){
   Rez = NaN
   Rez = '<p>Расчетные характеристики грунтов (приняты с учетом 6.3.3 ТКП 45-5.01-237-2011):</p>'
   Y11Count()
-  Rez += "<p> Y1`=" + Y11.toFixed(3) + " кН/м3 </p>"
+  Rez += "<p> Y1 = " + Y1+ " кН/м3 </p>"
+  Rez += "<p> Y1` = " + Y11+ " кН/м3 </p>"
   fi11Count()
-  Rez += "<p> f1`=" + fi11.toFixed(3) + " град </p>"
+  Rez += "<p> f1 = " + fi1 + " град </p>"  
+  Rez += "<p> f1` = " + fi11 + " град </p>"
   C11Count()
-  Rez += "<p> С1`=" + C11.toFixed(3) + " кПа </p>"
-//   console.log(interpol(2))
-
+  Rez += "<p> С1 = " + C1 + " кПа </p>"
+  Rez += "<p> С1` = " + C11.toFixed(2) + " кПа </p>"
+  
   AlfaCount()
 //   console.log(alfa)
-  e = eccentricity()
-//   console.log(e)
-  h1 = Number(GroundLevel.value) - Number(PipeLevel.value) - ( Number(H.value)/2 + e )
+  e = Number(eccentricity.value)
+  console.log(e)
+  h1 = Number(GroundLevel.value) - Number(PipeLevel.value) - ( Number(H.value)/2 + e)
 //   console.log(h1)
-Rez += "<p> h min = " + h1.toFixed(3) + " м </p><p></p>"
+Rez += "<p> h1 = " + h1.toFixed(2) + " м </p><p></p>"
   h2 = h1 + Number(H.value)
 //   console.log(h2)
-Rez += "<p> h max = " + h2.toFixed(3) + " м </p>"
-  W = (Number(B.value)*Number(H.value)*Number(H.value))/6
-//   console.log (W)
-Rez += "<p> W = " + W.toFixed(3) + "м3 </p>"
-  S = Number(B.value)*Number(H.value)
-//   console.log(S)
-Rez += "<p> S<small>(площадь)</small> = " + S.toFixed(3) + " м2 </p>"
-Rez += "<p> e<small>(эксцентриситет)</small> = " + e.toFixed(4) + " м </p>"
-Rez += "<p>Коэффициенты Кр и Ка принимаем по таблице 6.4 ТКП 45-5.01-237-2011</p>"
-Rez += "<p> K<small>p</small> = " + Ka.toFixed(3) + " </p>"
-Rez += "<p> K<small>a</small> = " + Kp.toFixed(3) + " </p>"
-Rez += "<p>Gуд = Kp*Y1`*h  -  Ka*Y1`*h - из формулы 6.4 ТКП 45-5.01-237-2011</p>"
+Rez += "<p> h2 = " + h2.toFixed(2) + " м </p>"
+  
+Rez += "<p>Коэффициенты Кр и Ка принимаем по таблице 6.4 ТКП 45-5.01-237-2011 для условий α=δ=β=0 интерполяцией для φ = "+fi11+"град</p>"
+Rez += "<p> K<small>p</small> = " + Kp+ " </p>"
+Rez += "<p> K<small>a</small> = " + Ka+ " </p>"
+Fsd = (Number(Qd.value) + ((Yn.value)*Ka*(h1+h2)/2)*H.value*L.value).toFixed(2)
+Rez += "<p> Сдвигающая сила - Fsd = " + Fsd+ " кН </p>"
+// Rez += "<p> C1 = " + C1+ " </p>"
+Fud  = (((Yn.value)*Kp*(h1+h2)/2)*H.value*L.value + (B.value*H.value*L.value*25 + h1*B.value*L.value*Yn.value)*Math.tan(fi1*Math.PI/180) + B.value*L.value*C1).toFixed(2)
+Rez += "<p> Удерживающая сила - Fud = " + Fud + " кН </p>"
+let h = Number(H.value)
+let l = Number(L.value)
+Mopr = ((h1*Y11*Ka*h*h*l/2) + (h*Y11*Ka*l/2)*h/3 + Qd.value*((h/2)-e)).toFixed(2)
+Rez += "<p> Опрокидывающий момент - Mopr = " + Mopr + "кН*м </p>"
+Mud = ((h1*Y11*Kp*h*h*l/2) + (h*Y11*Kp*l/2)*h/3 + (B.value*H.value*L.value*25 + h1*B.value*L.value*Yn.value)*B.value/2).toFixed(2)
+Rez += "<p> Удерживающий момент - Mud = " + Mud + "кН*м </p>"
 
-Rez +="<p>Gоп = Q<small>d</small>/S +/- Q<small>d</small>*e/W</p>"
-GHoldMin = Number(Y11)*h1*(Number(Ka)-Number(Kp))
-//   console.log(GHoldMin)
-  GHoldMax = Y11*h2*(Ka-Kp)
-//   console.log(GHoldMax)
-Rez += "<p> G<sup>min</sup><sub>уд</sub> = "+Ka.toFixed(3)+" * "+h1.toFixed(3)+" * "+Y11.toFixed(3)+" - "+Kp.toFixed(3)+" * "+h1.toFixed(3)+" * "+Y11.toFixed(3)+" = " +GHoldMin.toFixed(3)+" кН/м2</p>"
-Rez += "<p> G<sup>max</sup><sub>уд</sub> = "+Ka.toFixed(3)+" * "+h2.toFixed(3)+" * "+Y11.toFixed(3)+" - "+Kp.toFixed(3)+" * "+h2.toFixed(3)+" * "+Y11.toFixed(3)+" = " +GHoldMax.toFixed(3)+" кН/м2</p>"
-    
-  GshiftMin = Number(N.value)/S - Number(N.value)*e/W
-//   console.log(GhsiftMin)
-  GshiftMax = Number(N.value)/S + Number(N.value)*e/W
-//   console.log(GhsiftMax)
-
-    Rez += "<p>G<sup>min</sup><sub>опр</sub> = "+Number(N.value).toFixed(3)+" / "+S.toFixed(3)+" - "+Number(N.value).toFixed(3)+" * "+e.toFixed(3)+"/"+W.toFixed(3)+" ="+GshiftMin.toFixed(3)+" кН/м2</p>"
-    Rez += "<p>G<sup>max</sup><sub>опр</sub> = "+Number(N.value).toFixed(3)+" / "+S.toFixed(3)+" + "+Number(N.value).toFixed(3)+" * "+e.toFixed(3)+"/"+W.toFixed(3)+" ="+GshiftMax.toFixed(3)+" кН/м2</p>"
-    
-Rez += "<p> G<sup>min</sup><sub>уд</sub> = " + GHoldMin.toFixed(3) +" кН/м2   >    G<sup>min</sup><sub>опр</sub> = "+ GshiftMin.toFixed(3) +" кН/м2 </p>"
-Rez += "<p> G<sup>max</sup><sub>уд</sub> = " + GHoldMax.toFixed(3) +" кН/м2   >    G<sup>max</sup><sub>опр</sub> = "+ GshiftMax.toFixed(3) +" кН/м2 </p>"
   resalt.innerHTML = Rez
+//   console.log(fi1)
+// console.log(fi11)
+// console.log(C1)
+// console.log(C11)
 }
