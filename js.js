@@ -199,28 +199,29 @@ count.onclick = function(){
   e = Number(eccentricity.value)
   console.log(e)
   h1 = Number(GroundLevel.value) - Number(PipeLevel.value) - ( Number(H.value)/2 + e)
-//   console.log(h1)
-Rez += "<p> h1 = " + h1.toFixed(2) + " м </p><p></p>"
+    h1 = Number(h1.toFixed(2))
+Rez += "<p> h1 = " + h1 + " м </p><p></p>"
   h2 = h1 + Number(H.value)
 //   console.log(h2)
-Rez += "<p> h2 = " + h2.toFixed(2) + " м </p>"
+Rez += "<p> h2 = " + h2 + " м </p>"
   
 Rez += "<p>Коэффициенты Кр и Ка принимаем по таблице 6.4 ТКП 45-5.01-237-2011 для условий α=δ=β=0 интерполяцией для φ = "+fi11+"град</p>"
 Rez += "<p> K<small>p</small> = " + Kp+ " </p>"
 Rez += "<p> K<small>a</small> = " + Ka+ " </p>"
-Fsd = (Number(Qd.value) + ((Yn.value)*Ka*(h1+h2)/2)*H.value*L.value).toFixed(2)
-Rez += "<p> Сдвигающая сила - Fsd = " + Fsd+ " кН </p>"
+Fsd = Number(Qd.value) + ((Yn.value)*Ka*(h1+h2)/2)*H.value*L.value
+Fsd = Fsd.toFixed(2)
+// Rez += "<p> Сдвигающая сила - Fsd = " + Fsd+ " кН </p>"
 // Rez += "<p> C1 = " + C1+ " </p>"
 Fud  = (((Yn.value)*Kp*(h1+h2)/2)*H.value*L.value + (B.value*H.value*L.value*25 + h1*B.value*L.value*Yn.value)*Math.tan(fi1*Math.PI/180) + B.value*L.value*C1).toFixed(2)
-Rez += "<p> Удерживающая сила - Fud = " + Fud + " кН </p>"
+// Rez += "<p> Удерживающая сила - Fud = " + Fud + " кН </p>"
 let h = Number(H.value)
 let l = Number(L.value)
 Mopr = ((h1*Y11*Ka*h*h*l/2) + (h*Y11*Ka*l/2)*h/3 + Qd.value*((h/2)-e)).toFixed(2)
-Rez += "<p> Опрокидывающий момент - Mopr = " + Mopr + "кН*м </p>"
+// Rez += "<p> Опрокидывающий момент - Mopr = " + Mopr + "кН*м </p>"
 Mud = ((h1*Y11*Kp*h*h*l/2) + (h*Y11*Kp*l/2)*h/3 + (B.value*H.value*L.value*25 + h1*B.value*L.value*Yn.value)*B.value/2).toFixed(2)
-Rez += "<p> Удерживающий момент - Mud = " + Mud + "кН*м </p>"
-
-  resalt.innerHTML = Rez
+// Rez += "<p> Удерживающий момент - Mud = " + Mud + "кН*м </p>"
+Rez += "<h2>Расчет устойчивости против сдвига</h2><h3>Fsd  <= γc * Fud / γ n,     (7.3) ТКП 45-5.01-237-2011</h3><p>Fsd — сдвигающая сила, равная сумме проекций на горизонтальную плоскость всех действующих на стену сдвигающих сил, кН;</p><p>Fud — удерживающая сила, равная сумме проекций всех удерживающих сил на ту же плоскость, кН;</p><p>γc — коэффициент условий работы грунта основания: для песков, кроме пылеватых, γc = 1; для пылеватых песков и пылевато-глинистых грунтов в стабилизированном состоянии γc = 0,9, в нестабилизированном состоянии — γc = 0,85;</p><p>γn — коэффициент надежности по назначению сооружения, принимаемый равным 1,2; 1,15 и 1,1 соответственно для зданий и сооружений I, II и III уровней ответственности. ГОСТ 27751-88 - отменен, γn = 1.0</p><h3>Fsd = Eha + Qd = "+((Yn.value)*Ka*(h1+h2)/2)*H.value*L.value+" + "+Qd.value+" = "+(((Yn.value)*Ka*(h1+h2)/2)*H.value*L.value+Number(Qd.value))+" кН</h3><p>где Eha - горизонтальная составляющая распора грунта (активного давления)</p><h3>Eha = (0.5*Gyha*h + Gyh1a*h1)*l = (0.5*"+Y11+"*"+h+"*"+Ka+"*"+h+"+"+Y11+"*"+h1+"*"+Ka+"*"+h+")*"+l+" = "+((Yn.value)*Ka*(h1+h2)/2)*H.value*L.value+" кН </h3><p>Qd - расчетное значение переменного воздействия от труб ТС, кН</p><h3>Fud = N*tg(φ1-β)+b*C1*l+Ehp = "+(B.value*H.value*L.value*25 + h1*B.value*L.value*Yn.value)+"*tg("+fi1+")+"+B.value+"*"+C1+"*"+l+"+"+((Yn.value)*Kp*(h1+h2)/2)*H.value*L.value+" = "+Fud+"кН</h3><p>где N - собственный вес щита опоры и грунта над щитом</p><h3>N = b*h*l*25кНм³+b*l*h1*Y1' = "+B.value+"*"+H.value+"*"+L.value+"*25 +"+h1+"*"+B.value+"*"+L.value+"*"+Yn.value+" = "+(B.value*H.value*L.value*25 + h1*B.value*L.value*Yn.value)+" кН </h3><p>φ1 - угол внутреннего трения грунта ненарушенного сложения для предельных состоянийпервой группы;</p><p>β — угол наклона поверхности грунта засыпки за щитом опоры к горизонтали = 0;</p><p>b - толщина щита опоры, м</p><p>h - высота щита опоры, м</p><p>l - длина щита опоры, м</p><p>h1 - расстояние от уровня планировки земли до верха щита опоры, м</p><p>С1 - удельное сцепление грунта ненарушенного сложения для предельногосостояния первой группы, кПа</p><p>Ep - горизонтальная составляющая распора грунта (пассивного давления)</p><h3>Ehp = (0.5*Gyhр*h + Gyh1р*h1)*l = (0.5*"+Y11+"*"+h+"*"+Kp+"*"+h+"+"+Y11+"*"+h1+"*"+Kp+"*"+h+")*"+l+" = "+((Yn.value)*Kp*(h1+h2)/2)*H.value*L.value+" кН</h3><h3>Fsd = "+Fsd+"кН < Fud = "+Fud+" кН  Условие выполняется </h3><p></p><h2>Расчет устойчивости щита против опрокидывания</h2><h3>Mud/Mopr >= 1.0</h3><p>Mud — сумма моментов всех удерживающих сил относительно кромки, проходящей черезточку О, кН·м</p><h3>Mud = (0.5*Gyhр*h*1/3h + Gyh1р*h1*1/2h)*l + N*b/2 = (0.5*"+Y11+"*"+h+"*"+Kp+"*"+h+"*1/3*"+h+"+"+Y11+"*"+h1+"*"+Kp+"*"+h+"*1/2*"+h+")*"+l+" + "+(B.value*H.value*L.value*25 + h1*B.value*L.value*Yn.value)+" * "+B.value+" /2  = "+Mud+" кн*м</h3><p>Mopr — сумма моментов всех опрокидывающих сил относительно кромки, проходящих черезточку О, кН·м</p><h3>Mopr = (0.5*Gyha*h*1/3h + Gyh1a*h1*1/2h)*l + Qd * (1/2h-e)= (0.5*"+Y11+"*"+h+"*"+Ka+"*"+h+"*1/3*"+h+"+"+Y11+"*"+h1+"*"+Ka+"*"+h+"*1/2*"+h+")*"+l+" + "+Qd.value+"*(1/2*"+h+"-"+e+") = "+Mopr+" кН*м</h3><h3>Mud/Mopr = "+Mud+" / "+Mopr+" = "+(Mud/Mopr).toFixed(2)+">= 1</h3>"
+resalt.innerHTML = Rez
 //   console.log(fi1)
 // console.log(fi11)
 // console.log(C1)
