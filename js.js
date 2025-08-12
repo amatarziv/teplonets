@@ -5,6 +5,8 @@ const resalt = document.getElementById('resalt')
 const count = document.getElementById('count')
 const sand = document.getElementById('sand')
 const clay = document.getElementById('clay')
+const panelPositionWeak = document.getElementById('weak')
+const panelPositionStrong = document.getElementById('strong')
 const H = document.getElementById('H')
 const L = document.getElementById('L')
 const B = document.getElementById('B')
@@ -61,7 +63,7 @@ const K =
 
 // глобальные переменные
 let Ka
-let alfa
+let Kp
 let Y11
 let Y1
 let fi11
@@ -78,22 +80,22 @@ let GshiftMin // сдвигающая мин
 let GshiftMax // сдвигающая макс
 let W // момент сопротивления 
 let S //  площадь щита
-let Kp
 let Fsd
 let Fud
 let Mud
 let Mopr
 let Rez
 
+function func(e) {
+    if (e.value.indexOf(".") != '-1') {
+      e.value=e.value.substring(0, e.value.indexOf(".") + 3); // цифра 4, устанавливает количество цифр после запятой, 
+                                                              //т.е. если 4, то максимум 3 цифры после запятой
+    }
+  }
 
-function AlfaCount(){
+function GroundPressCoeff(){
     Ka = (Number(interpol(1))).toFixed(2)
-    // console.log('Kp='+ Kp)
     Kp = (Number(interpol(2))).toFixed(2)
-    // console.log('Ka='+ Ka)
-    // alfa = (Ka-Kp)*Y11
-    // console.log('fi11 ='+ fi11)
-    // console.log('alfa ='+ alfa)
 }
 
 // 
@@ -104,24 +106,25 @@ function Y11Count(){
 //  
 function fi11Count(){
     if(sand.checked){
-            fi1 = (Number(fin.value)/1.1).toFixed(2)
-           fi11 =  (fi1*0.9).toFixed(2)
-           console.log(fi11)
-    } else {
-      fi1 = (Number(fin.value)/1.15).toFixed(2)
-      fi11 = (fi1)*0.9.toFixed(2)
+            let f = Number(fin.value)
+            fi1 = f/1.1
+           fi11 =  fi1*0.9
+        } else {
+      fi1 = (fin.value)/1.15
+      fi11 = fi1*0.9
     }
+    fi1 = fi1.toFixed(2)
+    fi11 = fi11.toFixed(2)
 }
-
-// 
-function C11Count (){
+//
+function C11Count(){
     let a = Number(Cn_.value)
     C1 = (a/1.5).toFixed(2)
     let C = (a/1.5)*0.5
     let h = Number(H.value)
-    let gr = Number(GroundLevel.value)
-    let pi= Number(PipeLevel.value)
-    if(h<=1.5){
+    gr = Number(GroundLevel.value).toFixed(2)
+    pi= Number(PipeLevel.value).toFixed(2)
+    if(h<=1.5||a==0){
          C11 = 0
     }else if((gr-pi+h/2)<=3){
         C11 = 5
@@ -130,7 +133,6 @@ function C11Count (){
     }else C11 = 7.0
     
 }
-
 
 // 
 function groundValueCount(){
@@ -164,66 +166,86 @@ function interpol(p){
 
 }
 
+function CountLivel(){
+    let h = Number(H.value)
+    e = Number(eccentricity.value)
+    h1 = Number(((gr-pi)-(h/2+e)).toFixed(2))
+    h2 = (h1+h).toFixed(2)
+}
+function testM(a,b){
+    if (condition) {
+        
+    }
+}
 
-
-
-
-// function eccentricity(){
-//     let h = Number(H.value)
-//     console.log('h ='+ h)
-//     let b = Number(B.value)
-//     console.log('b ='+ b)
-//     let n = Number(N.value)
-//     console.log('n ='+ n)
-//     return ((h*h*h)*(alfa)*b)/(12*n)
-// } 
-
-
-
+function testQ(a,b){
+    var rezTest
+        if (a<b) {
+            rezTest = "Условие выполняется"        
+        }else rezTest = "Условие не выполняется"
+    return rezTest
+}
 
 count.onclick = function(){
-  Rez = NaN
-  Rez = '<p>Расчетные характеристики грунтов (приняты с учетом 6.3.3 ТКП 45-5.01-237-2011):</p>'
-  Y11Count()
-  Rez += "<p> Y1 = " + Y1+ " кН/м3 </p>"
-  Rez += "<p> Y1` = " + Y11+ " кН/м3 </p>"
-  fi11Count()
-  Rez += "<p> f1 = " + fi1 + " град </p>"  
-  Rez += "<p> f1` = " + fi11 + " град </p>"
-  C11Count()
-  Rez += "<p> С1 = " + C1 + " кПа </p>"
-  Rez += "<p> С1` = " + C11.toFixed(2) + " кПа </p>"
-  
-  AlfaCount()
-//   console.log(alfa)
-  e = Number(eccentricity.value)
-  console.log(e)
-  h1 = Number(GroundLevel.value) - Number(PipeLevel.value) - ( Number(H.value)/2 + e)
-    h1 = Number(h1.toFixed(2))
-Rez += "<p> h1 = " + h1 + " м </p><p></p>"
-  h2 = h1 + Number(H.value)
-//   console.log(h2)
-Rez += "<p> h2 = " + h2 + " м </p>"
-  
-Rez += "<p>Коэффициенты Кр и Ка принимаем по таблице 6.4 ТКП 45-5.01-237-2011 для условий α=δ=β=0 интерполяцией для φ = "+fi11+"град</p>"
-Rez += "<p> K<small>p</small> = " + Kp+ " </p>"
-Rez += "<p> K<small>a</small> = " + Ka+ " </p>"
-Fsd = Number(Qd.value) + ((Yn.value)*Ka*(h1+h2)/2)*H.value*L.value
-Fsd = Fsd.toFixed(2)
-// Rez += "<p> Сдвигающая сила - Fsd = " + Fsd+ " кН </p>"
-// Rez += "<p> C1 = " + C1+ " </p>"
-Fud  = (((Yn.value)*Kp*(h1+h2)/2)*H.value*L.value + (B.value*H.value*L.value*25 + h1*B.value*L.value*Yn.value)*Math.tan(fi1*Math.PI/180) + B.value*L.value*C1).toFixed(2)
-// Rez += "<p> Удерживающая сила - Fud = " + Fud + " кН </p>"
-let h = Number(H.value)
-let l = Number(L.value)
-Mopr = ((h1*Y11*Ka*h*h*l/2) + (h*Y11*Ka*l/2)*h/3 + Qd.value*((h/2)-e)).toFixed(2)
-// Rez += "<p> Опрокидывающий момент - Mopr = " + Mopr + "кН*м </p>"
-Mud = ((h1*Y11*Kp*h*h*l/2) + (h*Y11*Kp*l/2)*h/3 + (B.value*H.value*L.value*25 + h1*B.value*L.value*Yn.value)*B.value/2).toFixed(2)
-// Rez += "<p> Удерживающий момент - Mud = " + Mud + "кН*м </p>"
-Rez += "<h2>Расчет устойчивости против сдвига</h2><h3>Fsd  <= γc * Fud / γ n,     (7.3) ТКП 45-5.01-237-2011</h3><p>Fsd — сдвигающая сила, равная сумме проекций на горизонтальную плоскость всех действующих на стену сдвигающих сил, кН;</p><p>Fud — удерживающая сила, равная сумме проекций всех удерживающих сил на ту же плоскость, кН;</p><p>γc — коэффициент условий работы грунта основания: для песков, кроме пылеватых, γc = 1; для пылеватых песков и пылевато-глинистых грунтов в стабилизированном состоянии γc = 0,9, в нестабилизированном состоянии — γc = 0,85;</p><p>γn — коэффициент надежности по назначению сооружения, принимаемый равным 1,2; 1,15 и 1,1 соответственно для зданий и сооружений I, II и III уровней ответственности. ГОСТ 27751-88 - отменен, γn = 1.0</p><h3>Fsd = Eha + Qd = "+((Yn.value)*Ka*(h1+h2)/2)*H.value*L.value+" + "+Qd.value+" = "+(((Yn.value)*Ka*(h1+h2)/2)*H.value*L.value+Number(Qd.value))+" кН</h3><p>где Eha - горизонтальная составляющая распора грунта (активного давления)</p><h3>Eha = (0.5*Gyha*h + Gyh1a*h1)*l = (0.5*"+Y11+"*"+h+"*"+Ka+"*"+h+"+"+Y11+"*"+h1+"*"+Ka+"*"+h+")*"+l+" = "+((Yn.value)*Ka*(h1+h2)/2)*H.value*L.value+" кН </h3><p>Qd - расчетное значение переменного воздействия от труб ТС, кН</p><h3>Fud = N*tg(φ1-β)+b*C1*l+Ehp = "+(B.value*H.value*L.value*25 + h1*B.value*L.value*Yn.value)+"*tg("+fi1+")+"+B.value+"*"+C1+"*"+l+"+"+((Yn.value)*Kp*(h1+h2)/2)*H.value*L.value+" = "+Fud+"кН</h3><p>где N - собственный вес щита опоры и грунта над щитом</p><h3>N = b*h*l*25кНм³+b*l*h1*Y1' = "+B.value+"*"+H.value+"*"+L.value+"*25 +"+h1+"*"+B.value+"*"+L.value+"*"+Yn.value+" = "+(B.value*H.value*L.value*25 + h1*B.value*L.value*Yn.value)+" кН </h3><p>φ1 - угол внутреннего трения грунта ненарушенного сложения для предельных состоянийпервой группы;</p><p>β — угол наклона поверхности грунта засыпки за щитом опоры к горизонтали = 0;</p><p>b - толщина щита опоры, м</p><p>h - высота щита опоры, м</p><p>l - длина щита опоры, м</p><p>h1 - расстояние от уровня планировки земли до верха щита опоры, м</p><p>С1 - удельное сцепление грунта ненарушенного сложения для предельногосостояния первой группы, кПа</p><p>Ep - горизонтальная составляющая распора грунта (пассивного давления)</p><h3>Ehp = (0.5*Gyhр*h + Gyh1р*h1)*l = (0.5*"+Y11+"*"+h+"*"+Kp+"*"+h+"+"+Y11+"*"+h1+"*"+Kp+"*"+h+")*"+l+" = "+((Yn.value)*Kp*(h1+h2)/2)*H.value*L.value+" кН</h3><h3>Fsd = "+Fsd+"кН < Fud = "+Fud+" кН  Условие выполняется </h3><p></p><h2>Расчет устойчивости щита против опрокидывания</h2><h3>Mud/Mopr >= 1.0</h3><p>Mud — сумма моментов всех удерживающих сил относительно кромки, проходящей черезточку О, кН·м</p><h3>Mud = (0.5*Gyhр*h*1/3h + Gyh1р*h1*1/2h)*l + N*b/2 = (0.5*"+Y11+"*"+h+"*"+Kp+"*"+h+"*1/3*"+h+"+"+Y11+"*"+h1+"*"+Kp+"*"+h+"*1/2*"+h+")*"+l+" + "+(B.value*H.value*L.value*25 + h1*B.value*L.value*Yn.value)+" * "+B.value+" /2  = "+Mud+" кн*м</h3><p>Mopr — сумма моментов всех опрокидывающих сил относительно кромки, проходящих черезточку О, кН·м</p><h3>Mopr = (0.5*Gyha*h*1/3h + Gyh1a*h1*1/2h)*l + Qd * (1/2h-e)= (0.5*"+Y11+"*"+h+"*"+Ka+"*"+h+"*1/3*"+h+"+"+Y11+"*"+h1+"*"+Ka+"*"+h+"*1/2*"+h+")*"+l+" + "+Qd.value+"*(1/2*"+h+"-"+e+") = "+Mopr+" кН*м</h3><h3>Mud/Mopr = "+Mud+" / "+Mopr+" = "+(Mud/Mopr).toFixed(2)+">= 1</h3>"
+    let gr
+    let pi
+    Y11Count()
+    fi11Count()
+    C11Count()
+    CountLivel()
+    GroundPressCoeff()
+    let l = Number(L.value).toFixed(2) /*light panel*/
+    let h = Number(H.value).toFixed(2) /*height panel*/
+    let b  = Number(B.value).toFixed(2) /*thickness panel*/
+    let Eha = Number(((0.5*Y11*h*Ka*h+Y11*h1*Ka*h)*l).toFixed(2))
+    let Ehp = Number(((0.5*Y11*h*Kp*h+Y11*h1*Kp*h)*l).toFixed(2))
+    let qd = Number(Qd.value)
+    let Fsd = (Eha + qd).toFixed(2)
+    let N = (b*l*h*25 +b*l*h1*Y11).toFixed(2)
+    let Fud = (N*Math.tan(fi1*Math.PI/180)+b*C1*l+Ehp).toFixed(2)
+    let Mud = ((0.5*Y11*h*Kp*h*(1/3)*h+Y11*h1*Kp*h*(1/2)*h)*l+N*b/2).toFixed(2)
+    let Mopr = ((0.5*Y11*h*Ka*h*(1/3)*h+Y11*h1*Ka*h*(1/2)*h)*l+qd*((1/2)*h-e)).toFixed(2)
+
+
+    Rez = `
+    <p>Расчетные характеристики грунтов (приняты с учетом 6.3.3 ТКП 45-5.01-237-2011):</p>
+    <p> γ1 = ${Y1} кН/м3 </p>
+    <p> γ1' = ${Y11} кН/м3 </p>
+    <p> φ1 = ${fi1} град </p>
+    <p> φ1' =${fi11} град </p>
+    <p> С1 = ${C1} кПа </p>
+    <p> С1' = ${C11} кПа </p>
+    <p> h1 = ${h1} м</p>
+    <p> h2 = ${h2} м </p>
+    <p>Коэффициенты Кр и Ка принимаем по таблице 6.4 ТКП 45-5.01-237-2011 для условий α=δ=β=0 интерполяцией для φ = ${fi11}град</p>
+    <p> K<small>p</small> = ${Kp}</p>
+    <p> K<small>a</small> = ${Ka}</p>
+    <h2>Расчет устойчивости против сдвига</h2>
+    <h3>Fsd  <= γc * Fud / γ n,     (7.3) ТКП 45-5.01-237-2011</h3>
+    <p>Fsd — сдвигающая сила, равная сумме проекций на горизонтальную плоскость всех действующих на стену сдвигающих сил, кН;</p>
+    <p>Fud — удерживающая сила, равная сумме проекций всех удерживающих сил на ту же плоскость, кН;</p>
+    <p>γc — коэффициент условий работы грунта основания: для песков, кроме пылеватых, γc = 1; для пылеватых песков и пылевато-глинистых грунтов в стабилизированном состоянии γc = 0,9, в нестабилизированном состоянии — γc = 0,85;</p>
+    <p>γn — коэффициент надежности по назначению сооружения, принимаемый равным 1,2; 1,15 и 1,1 соответственно для зданий и сооружений I, II и III уровней ответственности. ГОСТ 27751-88 - отменен, γn = 1.0</p>
+    <h3>Fsd = Eha + Qd = ${Eha} + ${qd} = ${Fsd} кН</h3>
+    <p>где Eha - горизонтальная составляющая распора грунта (активного давления)</p>
+    <h3>Eha = (0.5*Gyha*h + Gyh1a*h1)*l = (0.5*${Y11}*${h}*${Ka}*${h}+${Y11}*${h1}*${Ka}*${h})*${l} = ${Eha} кН </h3>
+    <p>Qd - расчетное значение переменного воздействия от труб ТС, кН</p>
+    <h3>Fud = N*tg(φ1-β)+b*C1*l+Ehp = ${N}*tg(${fi1})+${b}*${C1}*${l}+${Ehp} = ${Fud}кН</h3>
+    <p>где N - собственный вес щита опоры и грунта над щитом</p>
+    <h3>N = b*l*h*25кНм³+b*l*h1*Y1' = ${b}*${l}*${h}*25 +${b}*${l}*${h1}*${Y11} = ${N} кН </h3>
+    <p>φ1 - угол внутреннего трения грунта ненарушенного сложения для предельных состоянийпервой группы;</p>
+    <p>β — угол наклона поверхности грунта засыпки за щитом опоры к горизонтали = 0;</p>
+    <p>b - толщина щита опоры, м</p><p>h - высота щита опоры, м</p><p>l - длина щита опоры, м</p>
+    <p>h1 - расстояние от уровня планировки земли до верха щита опоры, м</p><p>С1 - удельное сцепление грунта ненарушенного сложения для предельногосостояния первой группы, кПа</p>
+    <p>Ep - горизонтальная составляющая распора грунта (пассивного давления)</p>
+    <h3>Ehp = (0.5*Gyhр*h + Gyh1р*h1)*l = (0.5*${Y11}*${h}*${Kp}*${h}+${Y11}*${h1}*${Kp}*${h})*${l} = ${Ehp} кН</h3>
+    <h3>Fsd = ${Fsd} кН &lt; Fud = ${Fud} кН  ${testQ(Fsd,Fud)} </h3>
+    <p></p>
+    <h2>Расчет устойчивости щита против опрокидывания</h2><h3>Mud/Mopr &gt;= 1.0</h3>
+    <p>Mud — сумма моментов всех удерживающих сил относительно кромки, проходящей черезточку О, кН·м</p><h3>Mud = (0.5*Gyhр*h*1/3h + Gyh1р*h1*1/2h)*l + N*b/2 = (0.5*${Y11}*${h}*${Kp}*${h}*1/3*${h}+${Y11}*${h1}*${Kp}*${h}*1/2*${h})*${l} + ${N} * ${b}/2  = ${Mud} кн*м</h3>
+    <p>Mopr — сумма моментов всех опрокидывающих сил относительно кромки, проходящих черезточку О, кН·м</p>
+    <h3>Mopr = (0.5*Gyha*h*1/3h + Gyh1a*h1*1/2h)*l + Qd * (1/2h-e)= (0.5*${Y11}*${h}*${Ka}*${h}*1/3*${h}+${Y11}*${h1}*${Ka}*${h}*1/2*${h})*${l} + ${qd}*(1/2*${h}-${e}) = ${Mopr} кН*м</h3>
+    <h3>Mud/Mopr = ${Mud} / ${Mopr} = ${(Mud/Mopr).toFixed(2)}&gt;= 1</h3>`
+    
 resalt.innerHTML = Rez
-//   console.log(fi1)
-// console.log(fi11)
-// console.log(C1)
-// console.log(C11)
 }
